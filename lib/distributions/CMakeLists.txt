@@ -9,4 +9,8 @@ add_library(distributions STATIC
         GeometricDistribution.cpp
         PoissonDistribution.cpp
         DistributionExperiment.cpp
+        ../markov-chain/MarkovChain.cpp
+        ../markov-chain/MarkovChain.hpp
+        ../markov-chain/MarkovTextModel.cpp
+        ../markov-chain/MarkovTextModel.hpp
 )
