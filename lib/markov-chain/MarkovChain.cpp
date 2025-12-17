@@ -49,11 +49,45 @@ double MarkovChain::TransitionProbability(const State& from, const State& to) co
 }
 
 std::optional<MarkovChain::State> MarkovChain::SampleNext(const State& current, std::mt19937& rng) const {
+    if (state_to_index_.find(current) == state_to_index_.end()) {
+        return std::nullopt;
+    }
 
+    size_t current_index = state_to_index_.at(current);
+
+    if (row_sums_[current_index] == 0) {
+        return std::nullopt;
+    }
+
+    std::discrete_distribution<size_t> dist(
+        counts_[current_index].begin(),
+        counts_[current_index].end()
+    );
+    size_t next_index = dist(rng);
+
+    return index_to_state_[next_index];
 }
 
 std::vector<MarkovChain::State> MarkovChain::Generate(const State& start, size_t length, std::mt19937& rng) const {
+    std::vector<MarkovChain::State> states = std::vector<MarkovChain::State>();
 
+    if (state_to_index_.find(start) == state_to_index_.end()) {
+        return states;
+    }
+
+    states.push_back(start);
+
+    for(int i = 0; i < length; ++i){
+        std::optional<MarkovChain::State> next_state = SampleNext(states[states.size() - 1], rng);
+
+        if(next_state == std::nullopt){
+            return states;
+        } 
+        
+        states.push_back(next_state.value());
+    }
+
+    return states;
 }
 
 std::vector<MarkovChain::State> MarkovChain::States() const {
