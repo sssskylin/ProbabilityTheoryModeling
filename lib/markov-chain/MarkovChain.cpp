@@ -3,11 +3,16 @@
 namespace ptm {
 
 void MarkovChain::Train(const std::vector<State>& sequence) {
-    ensureState(sequence[0]);
-    for (size_t i = 1; i < sequence.size(); ++i) {
-        ensureState(sequence[i]);
-        ++counts_[i-1][i];
-        ++row_sums_[i-1];
+    if (sequence.size() < 2) {
+        return;
+    }
+
+    for (size_t i = 0; i < sequence.size() - 1; ++i) {
+        size_t from_index = ensureState(sequence[i]);
+        size_t to_index = ensureState(sequence[i + 1]);
+
+        ++counts_[from_index][to_index];
+        ++row_sums_[from_index];
     }
 }
 
@@ -77,7 +82,7 @@ std::vector<MarkovChain::State> MarkovChain::Generate(const State& start, size_t
 
     states.push_back(start);
 
-    for(int i = 0; i < length; ++i){
+    for(int i = 0; i < length - 1; ++i){
         std::optional<MarkovChain::State> next_state = SampleNext(states[states.size() - 1], rng);
 
         if(next_state == std::nullopt){
@@ -102,12 +107,12 @@ size_t MarkovChain::ensureState(const State& s) {
     state_to_index_[s] = index_to_state_.size();
     index_to_state_.push_back(s);
 
-    for(auto row : counts_) {
+    for(auto& row : counts_) {
         row.push_back(0);
     }
-    counts_.push_back(std::vector<size_t>(0, index_to_state_.size()));
+    counts_.push_back(std::vector<size_t>(index_to_state_.size(), 0));
     row_sums_.push_back(0);
 
-    return index_to_state_.size();
+    return index_to_state_.size() - 1;
 }
 }
