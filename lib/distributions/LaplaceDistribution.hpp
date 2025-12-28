@@ -1,6 +1,8 @@
 #ifndef PTM_LAPLACEDISTRIBUTION_HPP_
 #define PTM_LAPLACEDISTRIBUTION_HPP_
 
+#include <cmath>
+#include <numbers>
 #include <random>
 
 #include "Distribution.hpp"
@@ -9,7 +11,7 @@ namespace ptm {
 
 // Распределение Лапласа Laplace(mu, b)
 class LaplaceDistribution : public Distribution {
-public:
+ public:
   LaplaceDistribution(double mu, double b);
 
   [[nodiscard]] double Pdf(double x) const override;
@@ -19,11 +21,12 @@ public:
   [[nodiscard]] double TheoreticalMean() const override;
   [[nodiscard]] double TheoreticalVariance() const override;
 
-private:
+ private:
+  double InvertedCdf(double x) const;
   double mu_;
   double b_;
 };
 
-} // namespace ptm
+}  // namespace ptm
 
-#endif // PTM_LAPLACEDISTRIBUTION_HPP_
+#endif  // PTM_LAPLACEDISTRIBUTION_HPP_

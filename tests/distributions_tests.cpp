@@ -134,3 +134,12 @@ TEST(DistributionExperimentTest, BinomialEmpiricalMean) {
 }
 
 // Add your tests...
+TEST(DistributionExperimentTest, ExponentialDistributionBasic) {
+  using namespace ptm;
+  ExponentialDistribution ed(2.0);
+  EXPECT_NEAR(ed.Pdf(0.5), 0.735759, 1e-9);
+  EXPECT_NEAR(ed.Cdf(0.5), 0.632121, 1e-9);
+
+  EXPECT_NEAR(ed.TheoreticalMean(), 0.5, 1e-9);
+  EXPECT_NEAR(ed.TheoreticalVariance(), 0.25, 1e-9);
+}
