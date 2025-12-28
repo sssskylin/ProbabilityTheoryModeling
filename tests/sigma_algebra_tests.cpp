@@ -62,4 +62,22 @@ TEST(SigmaAlgebraTest, EventOperations) {
   EXPECT_FALSE(E3.Contains(c));
 }
 
-// Add your tests...
+TEST(SigmaAlgebraTest, CoinGame) {
+  using namespace ptm;
+  
+  OutcomeSpace coin;
+  auto heads = coin.AddOutcome("heads");
+  auto tails = coin.AddOutcome("tails");
+  
+  ProbabilityMeasure P(coin);
+  P.SetAtomicProbability(heads, 0.5);
+  P.SetAtomicProbability(tails, 0.5);
+  
+  EXPECT_TRUE(P.IsValid(1e-9));
+  
+  std::vector<bool> headsMask(2, false);
+  headsMask[heads] = true;
+  Event A(headsMask);
+  
+  EXPECT_NEAR(P.Probability(A), 0.5, 1e-9);
+}

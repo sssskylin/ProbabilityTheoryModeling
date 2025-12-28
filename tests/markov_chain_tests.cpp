@@ -103,3 +103,16 @@ TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   std::size_t space_count = std::ranges::count(generated, ' ');
   EXPECT_GT(space_count, 5u);
 }
+
+TEST(MarkovChainTest, SingleState) {
+  using namespace ptm;
+
+  MarkovChain chain;
+  chain.Train({"A", "A", "A"});
+  
+  EXPECT_NEAR(chain.TransitionProbability("A", "A"), 1.0, 1e-9);
+  
+  std::mt19937 rng(123);
+  std::optional<std::string> next = chain.SampleNext("A", rng);
+  EXPECT_EQ(next, "A");
+}
