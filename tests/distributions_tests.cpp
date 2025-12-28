@@ -11,6 +11,7 @@
 #include "lib/distributions/NormalDistribution.hpp"
 #include "lib/distributions/PoissonDistribution.hpp"
 #include "lib/distributions/UniformDistribution.hpp"
+#include "lib/distributions/ExponentialDistribution.hpp"
 
 TEST(DistributionTest, NormalDistributionBasicProperties) {
   using namespace ptm;

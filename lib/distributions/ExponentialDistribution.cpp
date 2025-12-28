@@ -2,14 +2,6 @@
 
 using namespace ptm;
 
-explicit ExponentialDistribution::ExponentialDistribution(double lambda) {
-  if (lambda <= 0) {
-    throw std::runtime_error(
-        "Exponetial distribution parameter should be positive");
-  }
-  lambda_ = lambda;
-}
-
 [[nodiscard]] double ExponentialDistribution::Pdf(double x) const {
   if (x < 0) {
     return 0;
