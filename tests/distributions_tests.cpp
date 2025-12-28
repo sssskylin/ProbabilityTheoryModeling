@@ -4,6 +4,7 @@
 
 #include "lib/distributions/BernoulliDistribution.hpp"
 #include "lib/distributions/BinomialDistribution.hpp"
+#include "lib/distributions/ExponentialDistribution.hpp"
 #include "lib/distributions/CauchyDistribution.hpp"
 #include "lib/distributions/DistributionExperiment.hpp"
 #include "lib/distributions/GeometricDistribution.hpp"
@@ -136,7 +137,7 @@ TEST(DistributionExperimentTest, BinomialEmpiricalMean) {
 // Add your tests...
 TEST(DistributionExperimentTest, ExponentialDistributionBasic) {
   using namespace ptm;
-  ExponentialDistribution ed(2.0);
+  ptm::ExponentialDistribution ed(2.0);
   EXPECT_NEAR(ed.Pdf(0.5), 0.735759, 1e-9);
   EXPECT_NEAR(ed.Cdf(0.5), 0.632121, 1e-9);
 

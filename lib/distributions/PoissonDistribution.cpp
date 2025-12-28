@@ -2,7 +2,7 @@
 
 using namespace ptm;
 
-explicit PoissonDistribution::PoissonDistribution(double lambda) {
+PoissonDistribution::PoissonDistribution(double lambda) {
   if (lambda < 0) {
     throw std::runtime_error("Amount of events can't be negative");
   }

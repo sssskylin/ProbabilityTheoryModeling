@@ -2,7 +2,7 @@
 
 using namespace ptm;
 
-explicit BernoulliDistribution::BernoulliDistribution(double p) {
+BernoulliDistribution::BernoulliDistribution(double p) {
   if (p < 0 || p > 1) {
     throw std::runtime_error(
         "Probability can't be less than 0 or greater than 1");
