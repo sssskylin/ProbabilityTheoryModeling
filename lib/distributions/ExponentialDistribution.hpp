@@ -10,7 +10,13 @@ namespace ptm {
 
 class ExponentialDistribution : public Distribution {
  public:
-  explicit ExponentialDistribution(double lambda);
+  explicit ExponentialDistribution(double lambda) {
+    if (lambda <= 0) {
+      throw std::runtime_error(
+          "Exponetial distribution parameter should be positive");
+    }
+    lambda_ = lambda;
+  }
 
   [[nodiscard]] double Pdf(double x) const override;
   [[nodiscard]] double Cdf(double x) const override;

@@ -2,14 +2,6 @@
 
 using namespace ptm;
 
-PoissonDistribution::PoissonDistribution(double lambda) {
-  if (lambda < 0) {
-    throw std::runtime_error("Amount of events can't be negative");
-  }
-
-  lambda_ = lambda;
-}
-
 [[nodiscard]] double PoissonDistribution::Pdf(double x) const {
   double lambda_divided_by_factorial = 1;
 

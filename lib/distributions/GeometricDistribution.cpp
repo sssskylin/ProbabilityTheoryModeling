@@ -2,15 +2,6 @@
 
 using namespace ptm;
 
-GeometricDistribution::GeometricDistribution(double p) {
-  if (p < 0 || p > 1) {
-    throw std::runtime_error(
-        "Probability can't be less than 0 or greater than 1");
-  }
-
-  p_ = p;
-}
-
 [[nodiscard]] double GeometricDistribution::Pdf(double x) const {
   return std::pow(1 - p_, x - 1) * p_;
 }

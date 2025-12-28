@@ -1,8 +1,8 @@
 #ifndef PTM_GEOMETRICDISTRIBUTION_HPP_
 #define PTM_GEOMETRICDISTRIBUTION_HPP_
 
-#include <random>
 #include <cmath>
+#include <random>
 
 #include "Distribution.hpp"
 
@@ -10,8 +10,15 @@ namespace ptm {
 
 // Геометрическое Geom(p) на {1, 2, 3, ...}
 class GeometricDistribution : public Distribution {
-public:
-  explicit GeometricDistribution(double p);
+ public:
+  explicit GeometricDistribution(double p) {
+    if (p < 0 || p > 1) {
+      throw std::runtime_error(
+          "Probability can't be less than 0 or greater than 1");
+    }
+
+    p_ = p;
+  }
 
   [[nodiscard]] double Pdf(double x) const override;
   [[nodiscard]] double Cdf(double x) const override;
@@ -20,10 +27,10 @@ public:
   [[nodiscard]] double TheoreticalMean() const override;
   [[nodiscard]] double TheoreticalVariance() const override;
 
-private:
+ private:
   double p_;
 };
 
-} // namespace ptm
+}  // namespace ptm
 
-#endif // PTM_GEOMETRICDISTRIBUTION_HPP_
+#endif  // PTM_GEOMETRICDISTRIBUTION_HPP_

@@ -2,15 +2,6 @@
 
 using namespace ptm;
 
-BernoulliDistribution::BernoulliDistribution(double p) {
-  if (p < 0 || p > 1) {
-    throw std::runtime_error(
-        "Probability can't be less than 0 or greater than 1");
-  }
-
-  p_ = p;
-}
-
 [[nodiscard]] double BernoulliDistribution::Pdf(double x) const {
   if (x == 1) {
     return p_;
