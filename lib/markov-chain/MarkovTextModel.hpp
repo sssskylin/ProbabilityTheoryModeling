@@ -3,6 +3,7 @@
 
 #include <random>
 #include <string>
+#include <sstream>
 
 #include "MarkovChain.hpp"
 
@@ -12,7 +13,9 @@ class MarkovTextModel {
 public:
   enum class TokenLevel { Character, Word }; // NOLINT
 
-  explicit MarkovTextModel(TokenLevel level = TokenLevel::Word);
+  explicit MarkovTextModel(TokenLevel level = TokenLevel::Word) {
+    level_ = level;
+  }
 
   // Первичное обучение / дообучение на тексте (одинаково, TrainFromText можно вызывать сколько угодно)
   void TrainFromText(const std::string& text);
