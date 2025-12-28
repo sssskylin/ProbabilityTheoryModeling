@@ -1,4 +1,5 @@
 #include "CauchyDistribution.hpp"
+#include <stdexcept>
 
 using namespace ptm;
 

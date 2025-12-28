@@ -1,4 +1,5 @@
 #include "BinomialDistribution.hpp"
+#include <stdexcept>
 
 using namespace ptm;
 

@@ -1,4 +1,5 @@
 #include "LaplaceDistribution.hpp"
+#include <stdexcept>
 
 using namespace ptm;
 
