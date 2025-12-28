@@ -1,13 +1,16 @@
 #ifndef PTM_CAUCHYDISTRIBUTION_HPP_
 #define PTM_CAUCHYDISTRIBUTION_HPP_
 
+#include <cmath>
+#include <numbers>
+
 #include "Distribution.hpp"
 
 namespace ptm {
 
 // Распределение Коши (x0, gamma)
 class CauchyDistribution : public Distribution {
-public:
+ public:
   CauchyDistribution(double x0, double gamma);
 
   [[nodiscard]] double Pdf(double x) const override;
@@ -17,11 +20,11 @@ public:
   [[nodiscard]] double TheoreticalMean() const override;
   [[nodiscard]] double TheoreticalVariance() const override;
 
-private:
+ private:
   double x0_;
   double gamma_;
 };
 
-} // namespace ptm
+}  // namespace ptm
 
-#endif // PTM_CAUCHYDISTRIBUTION_HPP_
+#endif  // PTM_CAUCHYDISTRIBUTION_HPP_

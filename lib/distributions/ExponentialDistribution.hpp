@@ -1,12 +1,15 @@
 #ifndef PTM_EXPONENTIALDISTRIBUTION_HPP_
 #define PTM_EXPONENTIALDISTRIBUTION_HPP_
 
+#include <cmath>
+#include <numbers>
+
 #include "Distribution.hpp"
 
 namespace ptm {
 
 class ExponentialDistribution : public Distribution {
-public:
+ public:
   explicit ExponentialDistribution(double lambda);
 
   [[nodiscard]] double Pdf(double x) const override;
@@ -16,10 +19,10 @@ public:
   [[nodiscard]] double TheoreticalMean() const override;
   [[nodiscard]] double TheoreticalVariance() const override;
 
-private:
+ private:
   double lambda_;
 };
 
-} // namespace ptm
+}  // namespace ptm
 
-#endif // PTM_EXPONENTIALDISTRIBUTION_HPP_
+#endif  // PTM_EXPONENTIALDISTRIBUTION_HPP_

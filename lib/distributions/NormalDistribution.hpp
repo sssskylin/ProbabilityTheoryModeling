@@ -2,6 +2,8 @@
 #define PTM_NORMALDISTRIBUTION_HPP_
 
 #include <random>
+#include <numbers>
+#include <cmath>
 
 #include "Distribution.hpp"
 

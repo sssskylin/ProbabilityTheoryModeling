@@ -1,6 +1,8 @@
 #ifndef PTM_POISSONDISTRIBUTION_HPP_
 #define PTM_POISSONDISTRIBUTION_HPP_
 
+#include <cmath>
+#include <numbers>
 #include <random>
 
 #include "Distribution.hpp"
@@ -9,7 +11,7 @@ namespace ptm {
 
 // Пуассоновское Poisson(lambda)
 class PoissonDistribution : public Distribution {
-public:
+ public:
   explicit PoissonDistribution(double lambda);
 
   [[nodiscard]] double Pdf(double x) const override;
@@ -19,10 +21,10 @@ public:
   [[nodiscard]] double TheoreticalMean() const override;
   [[nodiscard]] double TheoreticalVariance() const override;
 
-private:
+ private:
   double lambda_;
 };
 
-} // namespace ptm
+}  // namespace ptm
 
-#endif // PTM_POISSONDISTRIBUTION_HPP_
+#endif  // PTM_POISSONDISTRIBUTION_HPP_

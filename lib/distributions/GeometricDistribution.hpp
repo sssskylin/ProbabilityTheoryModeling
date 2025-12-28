@@ -2,6 +2,7 @@
 #define PTM_GEOMETRICDISTRIBUTION_HPP_
 
 #include <random>
+#include <cmath>
 
 #include "Distribution.hpp"
 
