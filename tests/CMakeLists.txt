@@ -12,7 +12,10 @@ add_executable(
 
 target_link_libraries(
         ${PROJECT_NAME}_tests
+        markov-chain
         sigma-algebra
+        law-of-large-numbers
+        distributions
         GTest::gtest_main
 )
 
