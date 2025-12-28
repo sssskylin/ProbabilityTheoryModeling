@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <numbers>
+#include <stdexcept>
 
 #include "Distribution.hpp"
 

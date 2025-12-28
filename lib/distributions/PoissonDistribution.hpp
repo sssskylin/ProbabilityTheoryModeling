@@ -4,6 +4,7 @@
 #include <cmath>
 #include <numbers>
 #include <random>
+#include <stdexcept>
 
 #include "Distribution.hpp"
 
