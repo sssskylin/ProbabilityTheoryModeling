@@ -21,10 +21,8 @@ ExperimentStats DistributionExperiment::Run(std::mt19937& rng) {
     samples[i] = dist_->Sample(rng);
   }
 
-  double sample_mean =
-      std::accumulate(samples.begin(), samples.end(), 0) * 1.0 / sample_size_;
-
-  double sample_variance = 0;
+  double sample_mean = std::accumulate(samples.begin(), samples.end(), 0.0) * 1.0 / sample_size_;
+  double sample_variance = 0.0;
 
   for (int j = 0; j < sample_size_; ++j) {
     double deviation = (samples[j] - sample_mean);
@@ -32,10 +30,10 @@ ExperimentStats DistributionExperiment::Run(std::mt19937& rng) {
   }
 
   results.empirical_mean = sample_mean;
-  results.empirical_variance = sample_variance;
+  results.empirical_variance = sample_variance / (sample_size_ - 1);
   results.mean_error = std::abs(sample_mean - dist_->TheoreticalMean());
   results.variance_error =
-      std::abs(sample_variance - dist_->TheoreticalVariance());
+      std::abs(results.empirical_variance - dist_->TheoreticalVariance());
 
   return results;
 }
@@ -70,7 +68,7 @@ std::vector<double> DistributionExperiment::EmpiricalCdf(
   }
 
   size_t size = grid.size();
-  double Kolmogorov_distance;
+  double Kolmogorov_distance = 0.0;
   for (int i = 0; i < size; ++i) {
     double theory_cdf = dist_->Cdf(grid[i]);
     double distance = std::abs(theory_cdf - empirical_cdf[i]);

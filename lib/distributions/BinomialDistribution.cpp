@@ -17,14 +17,16 @@ BinomialDistribution::BinomialDistribution(unsigned int n, double p) {
 }
 
 [[nodiscard]] double BinomialDistribution::Pdf(double x) const {
+  int k = static_cast<int>(std::round(x));
+  if (k < 0 || k > static_cast<int>(n_)) return 0;
+  
   double binomial_coefficient = 1;
-
-  for (double k = 1; k <= x; ++k) {
-    binomial_coefficient *= (n_ - k + 1) / k;
+  for (int i = 1; i <= k; ++i) {
+    binomial_coefficient *= (n_ - i + 1.0) / i;
   }
 
-  return binomial_coefficient * std::pow(p_, x) * std::pow(1 - p_, 1 - x);
-} 
+  return binomial_coefficient * std::pow(p_, k) * std::pow(1 - p_, n_ - k);
+}
 
 [[nodiscard]] double BinomialDistribution::Cdf(double x) const {
   double sum = 0;

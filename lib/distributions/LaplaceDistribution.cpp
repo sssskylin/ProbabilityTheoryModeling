@@ -3,7 +3,7 @@
 using namespace ptm;
 
 LaplaceDistribution::LaplaceDistribution(double mu, double b) {
-  if (mu <= 0) {
+  if (b <= 0) {
     throw std::runtime_error("Scale parameter can not be negative");
   }
 
@@ -12,18 +12,14 @@ LaplaceDistribution::LaplaceDistribution(double mu, double b) {
 }
 
 [[nodiscard]] double LaplaceDistribution::Pdf(double x) const {
-  double e_power = -mu_ * std::abs(x - b_);
-
-  return mu_ / 2 * std::pow(std::numbers::e, e_power);
+  return 1.0 / (2.0 * b_) * std::exp(-std::abs(x - mu_) / b_);
 }
 
 [[nodiscard]] double LaplaceDistribution::Cdf(double x) const {
-  double e_power = mu_ * (x - b_);
-
-  if (x <= b_) {
-    return 0.5 * std::pow(std::numbers::e, e_power);
+  if (x <= mu_) {
+    return 0.5 * std::exp((x - mu_) / b_);
   } else {
-    return 1 - 0.5 * std::pow(std::numbers::e, -e_power);
+    return 1 - 0.5 * std::exp(-(x - mu_) / b_);
   }
 }
 
@@ -33,16 +29,16 @@ double LaplaceDistribution::Sample(std::mt19937& rng) const {
   return InvertedCdf(y);
 }
 
-[[nodiscard]] double LaplaceDistribution::TheoreticalMean() const { return b_; }
+[[nodiscard]] double LaplaceDistribution::TheoreticalMean() const { return mu_; }
 
 [[nodiscard]] double LaplaceDistribution::TheoreticalVariance() const {
-  return 2.0 / mu_ / mu_;
+  return 2.0 * b_ * b_;
 }
 
 double LaplaceDistribution::InvertedCdf(double x) const {
   if (x < 0.5) {
-    return b_ + std::log(2 * x) / mu_;
+    return mu_ + b_ * std::log(2 * x);
   } else {
-    return b_ - std::log(2 * (1 - x)) / mu_;
+    return mu_ - b_ * std::log(2 * (1 - x));
   }
 }

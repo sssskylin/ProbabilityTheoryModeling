@@ -12,20 +12,19 @@ LLNPathResult LawOfLargeNumbersSimulator::Simulate(std::mt19937& rng, size_t max
     result.entries.reserve(max_n / step);
     double sum = 0;
 
-    for (size_t i = 0; i < max_n; ++i) {
-
-        if (i % step != 0) {
-            continue;
-        }
+    for (size_t i = 1; i < max_n; ++i) {
         double sample = dist_->Sample(rng);
         sum += sample;
 
-        LLNPathEntry entry = LLNPathEntry{
-                                    .n = i,
-                                    .sample_mean = sum / i,
-                                    .abs_error = std::abs(sample - sum / i)
-                                    };
-        result.entries.push_back(entry);
+        if (i % step == 0) {
+            double sample_mean = sum / i;
+            LLNPathEntry entry = LLNPathEntry{
+                .n = i,
+                .sample_mean = sample_mean,
+                .abs_error = std::abs(sample_mean - dist_->TheoreticalMean())
+            };
+            result.entries.push_back(entry);
+        }
     }
     return result;
 }
