@@ -1,4 +1,5 @@
 #include "Event.hpp"
+#include <stdexcept>
 
 namespace ptm {
 

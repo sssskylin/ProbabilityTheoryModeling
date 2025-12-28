@@ -17,7 +17,7 @@ ExperimentStats DistributionExperiment::Run(std::mt19937& rng) {
 
   std::vector<double> samples(sample_size_);
 
-  for (int i = 0; i < sample_size_; ++i) {
+  for (size_t i = 0; i < sample_size_; ++i) {
     samples[i] = dist_->Sample(rng);
   }
 
@@ -43,7 +43,7 @@ std::vector<double> DistributionExperiment::EmpiricalCdf(
     std::size_t sample_size) {
   std::vector<double> samples(sample_size);
 
-  for (int i = 0; i < sample_size; ++i) {
+  for (size_t i = 0; i < sample_size; ++i) {
     samples[i] = dist_->Sample(rng);
   }
 
@@ -69,7 +69,7 @@ std::vector<double> DistributionExperiment::EmpiricalCdf(
 
   size_t size = grid.size();
   double Kolmogorov_distance = 0.0;
-  for (int i = 0; i < size; ++i) {
+  for (size_t i = 0; i < size; ++i) {
     double theory_cdf = dist_->Cdf(grid[i]);
     double distance = std::abs(theory_cdf - empirical_cdf[i]);
 
